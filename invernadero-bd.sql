@@ -89,12 +89,13 @@ CREATE TABLE IF NOT EXISTS `invernaderoBD`.`detalle_calibracion` (
   `calibracion_infiltrometro` INT NOT NULL,
   `calibracion_frentehum` INT NOT NULL,
   PRIMARY KEY (`iddetalle_calibracion`),
-  INDEX `id_calibracion_infiltrometro_idx` (`calibracion_infiltrometro` ASC, `calibracion_frentehum` ASC),
+  INDEX `id_calibracion_infiltrometro_idx` (`calibracion_infiltrometro` ASC),
   CONSTRAINT `id_calibracion_infiltrometro`
     FOREIGN KEY (`calibracion_infiltrometro`)
-    REFERENCES `invernaderoBD`.`calibracion_infiltrometro` (`id_calibracion_infiltrometro')
+    REFERENCES `invernaderoBD`.`calibracion_infiltrometro` (`id_calibracion_infiltrometro`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE NO ACTION
+  INDEX `id_calibracion_frentehum_idx` (`calibracion_frentehum` ASC),
   CONSTRAINT `id_calibracion_frentehum`
     FOREIGN KEY (`calibracion_frentehum`)
     REFERENCES `invernaderoBD`.`calibracion_frente_humedad` (`id_calibracion_frentehum`)
