@@ -202,14 +202,14 @@ CREATE TABLE IF NOT EXISTS `invernaderoBD`.`higrometro` (
   `resistividad` FLOAT NULL,
   `fecha_sensado` INT NOT NULL,
   PRIMARY KEY (`id_higr`),
-  CONSTRAINT `id_fecha`
+  CONSTRAINT `id_fechahigr`
     FOREIGN KEY (`fecha_sensado`)
     REFERENCES `invernaderoBD`.`fecha_de_sensado` (`id_fecha`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `id_fecha_idx` ON `invernaderoBD`.`higrometro` (`fecha_sensado` ASC);
+CREATE INDEX `id_fechahigr_idx` ON `invernaderoBD`.`higrometro` (`fecha_sensado` ASC);
 
 
 -- -----------------------------------------------------
@@ -245,14 +245,14 @@ CREATE TABLE IF NOT EXISTS `invernaderoBD`.`frente_de_humedad` (
   `temperatura_ocho` FLOAT NULL,
   `fecha_sensado` INT NOT NULL,
   PRIMARY KEY (`id_frente_humedad`),
-  CONSTRAINT `id_fecha`
+  CONSTRAINT `id_fechafrente`
     FOREIGN KEY (`fecha_sensado`)
     REFERENCES `invernaderoBD`.`fecha_de_sensado` (`id_fecha`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `id_fecha_idx` ON `invernaderoBD`.`frente_de_humedad` (`fecha_sensado` ASC);
+CREATE INDEX `id_fechafrente_idx` ON `invernaderoBD`.`frente_de_humedad` (`fecha_sensado` ASC);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
