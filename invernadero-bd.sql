@@ -91,13 +91,13 @@ CREATE TABLE IF NOT EXISTS `invernaderoBD`.`detalle_calibracion` (
   PRIMARY KEY (`iddetalle_calibracion`),
   INDEX `id_calibracion_infiltrometro_idx` (`calibracion_infiltrometro` ASC, `calibracion_frentehum` ASC),
   CONSTRAINT `id_calibracion_infiltrometro`
-    FOREIGN KEY (`calibracion_infiltrometro` , `calibracion_frentehum`)
-    REFERENCES `invernaderoBD`.`calibracion_infiltrometro` (`id_calibracion_infiltrometro` , `id_calibracion_infiltrometro`)
+    FOREIGN KEY (`calibracion_infiltrometro`)
+    REFERENCES `invernaderoBD`.`calibracion_infiltrometro` (`id_calibracion_infiltrometro')
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `id_calibracion_frentehum`
-    FOREIGN KEY ()
-    REFERENCES `invernaderoBD`.`calibracion_frente_humedad` ()
+    FOREIGN KEY (`calibracion_frentehum`)
+    REFERENCES `invernaderoBD`.`calibracion_frente_humedad` (`id_calibracion_frentehum`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
