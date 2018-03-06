@@ -81,16 +81,16 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `invernaderoBD`.`detalle_calibracion`
+-- Table `invernaderoBD`.`historial_calibracion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invernaderoBD`.`detalle_calibracion` ;
+DROP TABLE IF EXISTS `invernaderoBD`.`historial_calibracion` ;
 
-CREATE TABLE IF NOT EXISTS `invernaderoBD`.`detalle_calibracion` (
-  `iddetalle_calibracion` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `invernaderoBD`.`historial_calibracion` (
+  `idhistorial_calibracion` INT NOT NULL AUTO_INCREMENT,
   `fecha_calibracion` DATETIME NOT NULL,
   `calibracion_infiltrometro` INT NOT NULL,
   `calibracion_frentehum` INT NOT NULL,
-  PRIMARY KEY (`iddetalle_calibracion`),
+  PRIMARY KEY (`idhistorial_calibracion`),
   CONSTRAINT `id_calibracion_infiltrometro`
     FOREIGN KEY (`calibracion_infiltrometro`)
     REFERENCES `invernaderoBD`.`calibracion_infiltrometro` (`id_calibracion_infiltrometro`)
@@ -103,8 +103,8 @@ CREATE TABLE IF NOT EXISTS `invernaderoBD`.`detalle_calibracion` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `id_calibracion_infiltrometro_idx` ON `invernaderoBD`.`detalle_calibracion` (`calibracion_infiltrometro` ASC);
-CREATE INDEX `id_calibracion_frentehum_idx` ON `invernaderoBD`.`detalle_calibracion` (`calibracion_frentehum` ASC);
+CREATE INDEX `id_calibracion_infiltrometro_idx` ON `invernaderoBD`.`historial_calibracion` (`calibracion_infiltrometro` ASC);
+CREATE INDEX `id_calibracion_frentehum_idx` ON `invernaderoBD`.`historial_calibracion` (`calibracion_frentehum` ASC);
 
 -- -----------------------------------------------------
 -- Table `invernaderoBD`.`experimento`
@@ -120,16 +120,16 @@ CREATE TABLE IF NOT EXISTS `invernaderoBD`.`experimento` (
   `frecuencia` INT NOT NULL,
   `estado_experimento` TINYINT NOT NULL,
   `usuario` INT NOT NULL,
-  `detalle_calibracion` INT NOT NULL,
+  `historial_calibracion` INT NOT NULL,
   PRIMARY KEY (`id_experimento`),
   CONSTRAINT `id_usuario`
     FOREIGN KEY (`usuario`)
     REFERENCES `invernaderoBD`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `iddetalle_calibracion`
-    FOREIGN KEY (`detalle_calibracion`)
-    REFERENCES `invernaderoBD`.`detalle_calibracion` (`iddetalle_calibracion`)
+  CONSTRAINT `idhistorial_calibracion`
+    FOREIGN KEY (`historial_calibracion`)
+    REFERENCES `invernaderoBD`.`historial_calibracion` (`idhistorial_calibracion`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -138,20 +138,20 @@ CREATE UNIQUE INDEX `nombre_experimento_UNIQUE` ON `invernaderoBD`.`experimento`
 
 CREATE INDEX `id_usuario_idx` ON `invernaderoBD`.`experimento` (`usuario` ASC);
 
-CREATE INDEX `iddetalle_calibracion_idx` ON `invernaderoBD`.`experimento` (`detalle_calibracion` ASC);
+CREATE INDEX `idhistorial_calibracion_idx` ON `invernaderoBD`.`experimento` (`historial_calibracion` ASC);
 
 
 -- -----------------------------------------------------
--- Table `invernaderoBD`.`fecha_de_sensado`
+-- Table `invernaderoBD`.`historial_de_sensado`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invernaderoBD`.`fecha_de_sensado` ;
+DROP TABLE IF EXISTS `invernaderoBD`.`historial_de_sensado` ;
 
-CREATE TABLE IF NOT EXISTS `invernaderoBD`.`fecha_de_sensado` (
-  `id_fecha` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `invernaderoBD`.`historial_de_sensado` (
+  `id_historial` INT NOT NULL AUTO_INCREMENT,
   `fecha_sensado` DATE NOT NULL,
   `hora_sensado` VARCHAR(45) NOT NULL,
   `id_experimento` INT NOT NULL,
-  PRIMARY KEY (`id_fecha`),
+  PRIMARY KEY (`id_historial`),
   CONSTRAINT `id_experimento`
     FOREIGN KEY (`id_experimento`)
     REFERENCES `invernaderoBD`.`experimento` (`id_experimento`)
@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `invernaderoBD`.`fecha_de_sensado` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `id_experimento_idx` ON `invernaderoBD`.`fecha_de_sensado` (`id_experimento` ASC);
+CREATE INDEX `id_experimento_idx` ON `invernaderoBD`.`historial_de_sensado` (`id_experimento` ASC);
 
 
 -- -----------------------------------------------------
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `invernaderoBD`.`infiltrometro` (
   PRIMARY KEY (`id_infiltrometro`),
   CONSTRAINT `id_fecha`
     FOREIGN KEY (`fecha_sensado`)
-    REFERENCES `invernaderoBD`.`fecha_de_sensado` (`id_fecha`)
+    REFERENCES `invernaderoBD`.`historial_de_sensado` (`id_historial`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `invernaderoBD`.`higrometro` (
   PRIMARY KEY (`id_higr`),
   CONSTRAINT `id_fechahigr`
     FOREIGN KEY (`fecha_sensado`)
-    REFERENCES `invernaderoBD`.`fecha_de_sensado` (`id_fecha`)
+    REFERENCES `invernaderoBD`.`historial_de_sensado` (`id_historial`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `invernaderoBD`.`frente_de_humedad` (
   PRIMARY KEY (`id_frente_humedad`),
   CONSTRAINT `id_fechafrente`
     FOREIGN KEY (`fecha_sensado`)
-    REFERENCES `invernaderoBD`.`fecha_de_sensado` (`id_fecha`)
+    REFERENCES `invernaderoBD`.`historial_de_sensado` (`id_historial`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
